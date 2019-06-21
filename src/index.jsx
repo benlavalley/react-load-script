@@ -78,7 +78,7 @@ export default class Script extends React.Component {
   }
 
   createScript() {
-    const { onCreate, url, attributes } = this.props;
+    const { onCreate, url, attributes, async } = this.props;
     const script = document.createElement('script');
 
     onCreate();
@@ -91,9 +91,7 @@ export default class Script extends React.Component {
     script.src = url;
 
     // default async to true if not set with custom attributes
-    if (!script.hasAttribute('async')) {
-      script.async = 1;
-    }
+    if (async) script.async = 1;
 
     const callObserverFuncAndRemoveObserver = (shouldRemoveObserver) => {
       const observers = this.constructor.scriptObservers[url];
